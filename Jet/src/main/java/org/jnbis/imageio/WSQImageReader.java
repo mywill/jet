@@ -18,7 +18,6 @@
 
 package org.jnbis.imageio;
 
-import com.google.common.base.Stopwatch;
 import org.jnbis.BitmapWithMetadata;
 import org.jnbis.WSQDecoder;
 import org.slf4j.Logger;
@@ -37,7 +36,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class WSQImageReader extends ImageReader {
 
@@ -100,12 +98,8 @@ public class WSQImageReader extends ImageReader {
                 return;
             }
             if (!(input instanceof ImageInputStream)) { throw new IllegalArgumentException("bad input: " + input.getClass().getCanonicalName()); }
-            final Stopwatch stopwatch = new Stopwatch();
-            stopwatch.start();
             log.debug("Input:{}",getInput());
             final BitmapWithMetadata bitmap = WSQDecoder.decode((ImageInputStream)getInput());
-            stopwatch.stop();
-            //log.debug("Decode took: {}",stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
             metadata = new WSQMetadata(); 
 
